@@ -6,7 +6,7 @@
 #define T1_CYCLES 10*1000000
 #define T2_CYCLES 100*1000000
 
-pthread_mutex_t lock,lock2;
+my_pthread_mutex_t lock,lock2;
 int flag=0;
 
 void *thread1(void *arg) {
@@ -25,25 +25,17 @@ void *thread1(void *arg) {
 		my_pthread_mutex_unlock(&lock);	
 	}
 
-	//my_pthread_mutex_lock(&lock2);
-	/*while(1){
-		num =3.14;
-		for(i=0;i<T2_CYCLES;i++,num++)
-			sqrt(num);
-		printf("thread 1: im running\n");
-	}
-*/
-	my_pthread_mutex_unlock(&lock2);
+	//my_pthread_mutex_unlock(&lock2);
 
    	while (count<10) {
 		++count;
         gettimeofday(&start, NULL);
     	//on my system each for loop takes ~60-75ms
 		//which is more than the scheduling quantum
-        pthread_mutex_lock(&lock);
+        my_pthread_mutex_lock(&lock);
         for (i=0; i<T2_CYCLES; i++,num++)
 			sqrt(num);
-        pthread_mutex_unlock(&lock);
+        my_pthread_mutex_unlock(&lock);
 
         gettimeofday(&end, NULL);
 
@@ -51,7 +43,7 @@ void *thread1(void *arg) {
 
         printf("Thread 1: Cycle took %ld sec, %ld usec\n", diff.tv_sec, diff.tv_sec);
     }
-		
+	my_pthread_exit(NULL);		
 }
 
 void *thread2(void *arg) {
@@ -62,10 +54,10 @@ void *thread2(void *arg) {
     while (count<10) {
         gettimeofday(&start, NULL);
    		++count; 
-        pthread_mutex_lock(&lock);
+        my_pthread_mutex_lock(&lock);
         for (i=0; i<T2_CYCLES; i++,num++)
             sqrt(num);
-        pthread_mutex_unlock(&lock);
+        my_pthread_mutex_unlock(&lock);
 		
         gettimeofday(&end, NULL);
 
@@ -77,15 +69,9 @@ void *thread2(void *arg) {
 		flag = 1;
 		my_pthread_mutex_unlock(&lock);
 	}
+	
 
-/*	while(1){
-		num =3.14;
-		for(i=0;i<T2_CYCLES;i++,num++)
-			sqrt(num);
-		printf("thread 2: im running\n");
-	}
-*/
-
+	my_pthread_exit(NULL);		
 }
 
 
