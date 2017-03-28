@@ -10,12 +10,13 @@ my_pthread_t ts[NUM_THREADS];
 
 void *thread(void *arg){
 	int i=0;
+    double num = 3.14;
 	int thread_num = *(int*)arg;
 	void *retval;
 
 	printf("Hello from thread #%d\n", thread_num);
-	for (i=0; i<50000000; i++)
-        sqrt(37.5);
+	for (i=0; i<50000000; i++,num+=1.0)
+        sqrt(num);
 
     retval = (void*) (long) (thread_num * 10);
 	my_pthread_exit(retval);

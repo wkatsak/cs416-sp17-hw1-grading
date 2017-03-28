@@ -12,9 +12,10 @@ void *thread(void *p){
 int main(){
     my_pthread_t t;
     int i;
+    double num = 3.14;
     my_pthread_create(&t, NULL, thread, (void*)&arg);
-    for (i=0; i<50000000; i++)
-        sqrt(37.5);
+    for (i=0; i<50000000; i++,num+=1.0)
+        sqrt(num);
         
     return 0;
 }

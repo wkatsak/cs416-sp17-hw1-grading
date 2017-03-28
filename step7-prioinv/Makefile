@@ -13,10 +13,10 @@ help:
 	@echo "\tmake system - Build the $(DEMO) using the system pthreads implementation."
 
 basic: $(DEMO).c my_pthread.c my_pthread_t.h
-	$(CC) $(CFLAGS) $(DEMO).c my_pthread.c -o $(DEMO)-basic
+	$(CC) $(CFLAGS) $(DEMO).c my_pthread.c -o $(DEMO)-basic -lm
 
 system: $(DEMO).c
-	$(CC) $(CFLAGS) $(DEMO).c -o $(DEMO)-system -pthread -include mypthread-system-override.h
+	$(CC) $(CFLAGS) $(DEMO).c -o $(DEMO)-system -pthread -lm -include mypthread-system-override.h
 
 clean:
 	@echo "Cleaning..."
