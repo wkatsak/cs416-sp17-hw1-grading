@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
     ts = (my_pthread_t *) malloc(sizeof(my_pthread_t) * num_threads);
 
     // initialize lock
-    if (pthread_mutex_init(&lock, NULL) !=0)
+    if (my_pthread_mutex_init(&lock, NULL) !=0)
     {
         printf("mutex init failed\n");
         exit(1);
